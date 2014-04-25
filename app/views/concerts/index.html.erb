@@ -1,0 +1,78 @@
+	<div id="player"></div>
+	<script>
+		swfobject.embedSWF("http://grooveshark.com/APIPlayer.swf", "player", "300", "300", "9.0.0", "", {}, {allowScriptAccess: "always"}, {id:"groovesharkPlayer", name:"groovesharkPlayer"}, function(e) {
+		
+	    var element = e.ref;
+	    	    
+	    if (element) {
+	    
+	        setTimeout(function() {
+	            window.player = element;
+	            window.player.setVolume(99);
+	        }, 1500);
+	        
+	    } else {
+	    
+	        // Couldn't load player
+	        
+	    }
+	    
+		});
+	</script>
+
+	<div id="page-wrap">
+		
+		<h1>Play Music through the Grooveshark Streaming API</h1>
+		
+		<p>Resources: <a href="http://jquery.com">jQuery</a>, <a href="http://code.google.com/p/swfobject/">SWFObject</a>, <a href="http://developers.grooveshark.com/tuts/streaming">Grooveshark Streaming API</a>, <a href="http://tinysong.com/api">Tinysong API</a></p>
+		
+		<h2>Pre-determined song(s)</h2>
+		<p>As in, you already have the song ID's</p>
+		
+		<p><strong>MMW - <em>Whatever Happened to Gus?</em></strong> 
+		<a href="#" data-songid="25446120">Play</a>
+		<a href="#" class="pause">Pause</a>
+		<a href="#" class="resume">Resume</a>
+		</p>
+		<% @concerts.each do |c|%>
+			<%= c.display_name unless defined?(c.display_name).nil? %> -- 
+			<%= c.popularity unless defined?(c.popularity).nil? %><br>
+			SONGS :<br>
+			<% 
+				tmp = ''
+				@hash_widget[c.id].each do |s| 
+				tmp = tmp + s.id.to_s + ','
+			end %>
+			<object width="250" height="250" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="gsPlaylist8328192397" name="gsPlaylist8328192397">
+				<param name="movie" value="http://grooveshark.com/widget.swf" />
+				<param name="wmode" value="window" />
+				<param name="allowScriptAccess" value="always" />
+				<object type="application/x-shockwave-flash" data="http://grooveshark.com/widget.swf" width="250" height="250">
+					<param name="wmode" value="window" />
+					<param name="allowScriptAccess" value="always" />
+					<param name="flashvars" value="hostname=grooveshark.com&songIDs=<%= tmp %>&p=0&bbg=000000&bth=000000&pfg=000000&lfg=000000&bt=FFFFFF&pbg=FFFFFF&pfgh=FFFFFF&si=FFFFFF&lbg=FFFFFF&lfgh=FFFFFF&sb=FFFFFF&bfg=666666&pbgh=666666&lbgh=666666&sbh=666666" /><span><a href="http://grooveshark.com/search/playlist?q=144%20Edward%20Bloom" title="144 by Edward Bloom on Grooveshark">144 by Edward Bloom on Grooveshark</a></span>
+				</object>
+			</object>
+			<br><br>
+		<% end %><br><br>
+		
+		<%= @url %>
+		<h2>Any song</h2>
+		<p>Get the song ID through the <a href="http://tinysong.com/api">Tinysong API</a>, then play it.</p>
+		
+		<form>
+			<label for="song-search-input">Search for a song: </label>
+			<input type="text" id="song-search-input" name="song-search-input" value="America">
+			<input type="submit" value="Search and play" class="search-song">
+		</form>
+		<p><a href="#" class="pause">Pause</a>
+		<a href="#" class="resume">Resume</a></p>
+		
+		<footer>
+			Powered by <a href="http://grooveshark.com">Grooveshark</a>
+		</footer>
+		
+	</div>
+
+	<script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+	<script src="js/grooveshark.js"></script>
