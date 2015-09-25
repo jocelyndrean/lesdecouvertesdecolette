@@ -5,10 +5,6 @@
 #   gem 'postgresql'
 development:
   adapter: postgresql
-  host: ec2-54-246-86-137.eu-west-1.compute.amazonaws.com
-  database: df6d8ase8mddi3
-  username: qsbyrmveqfcagu
-  password: L-uPg5XK69FvBaFBuVsjtCHCDZ
   pool: 5
   timeout: 5000
 
